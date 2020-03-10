@@ -20,7 +20,7 @@ class BinarySearchTree {
            meaning that if the `left` pointer is empty, 
            then we can just instantiate and insert the new node 
            as the left child of that node, passing `this` as the parent */
-      if (this.left == null) {
+      if (this.left === null) {
         this.left = new BinarySearchTree(key, value, this);
       } else {
         /* If the node has an existing left child, 
@@ -31,7 +31,7 @@ class BinarySearchTree {
     } else {
       /* Similarly, if the new key is greater than the node's key 
        then you do the same thing, but on the right-hand side */
-      if (this.right == null) {
+      if (this.right === null) {
         this.right = new BinarySearchTree(key, value, this);
       } else {
         this.right.insert(key, value);
@@ -40,7 +40,7 @@ class BinarySearchTree {
   }
   find(key) {
     // If the item is found at the root then return that value
-    if (this.key == key) {
+    if (this.key === key) {
       return this.value;
     } else if (key < this.key && this.left) {
       /* If the item you are looking for is less than the root 
@@ -143,20 +143,23 @@ function main() {
   tree1.insert(2);
   tree1.insert(5);
   tree1.insert(7);
-  // console.log(tree1);
+  // #4
   //console.log(tree(tree1))
+  // #5
   //console.log(depth(tree1))
   let depthTree = new BinarySearchTree();
   depthTree.insert(7);
   depthTree.insert(4);
   depthTree.insert(5);
   depthTree.insert(9);
+  // #5
   //console.log(depth(depthTree))
   let pine = new BinarySearchTree();
   pine.insert(10);
   pine.left = new BinarySearchTree(5, null, 10);
   pine.right = new BinarySearchTree(15, null, 10);
   pine.right.left = new BinarySearchTree(20, null, 15);
+  // #6
   // console.log(checkBST(tree1));
   // console.log(checkBST(pine));
   let alphabet = new BinarySearchTree();
@@ -174,11 +177,14 @@ function main() {
   alphabet.insert("N");
   //console.log(alphabet)
   // #7
-  console.log(thirdLargest(tree1));
+  //console.log(thirdLargest(tree1));
 }
 main();
 
-//4
+/**
+ * #4
+ * Without running this code in your code editor, explain what the following program does. Show with an example the result of executing this program. What is the runtime of this algorithm?
+ */
 function tree(t) {
   if (!t) {
     return 0;
@@ -186,7 +192,10 @@ function tree(t) {
   return tree(t.left) + t.key + tree(t.right);
 }
 
-//5
+/**
+ * #5
+ * Write an algorithm to find the height of a binary search tree. What is the time complexity of your algorithm?
+ */
 function depth(t) {
   if (!t) {
     return 0;
@@ -196,7 +205,10 @@ function depth(t) {
   return Math.max(right, left);
 }
 
-//6
+/**
+ * #6
+ * Write an algorithm to check whether an arbitrary binary tree is a binary search tree, assuming the tree does not contain duplicates.
+ */
 function checkBST(t) {
   if (!t) {
     return;
@@ -222,12 +234,10 @@ function checkBST(t) {
   return true;
 }
 
-// checkBST(10)
-//     checkBST(15) - false
-//       checkBST(20) - return
-//     5
-
-// #7
+/**
+ * #7
+ * Write an algorithm to find the 3rd largest node in a binary search tree.
+ */
 function thirdLargest(t, array = [0, 0, 0]) {
   // array = storing 3 largest num
   if (!t) {
@@ -244,10 +254,75 @@ function thirdLargest(t, array = [0, 0, 0]) {
   } else if (t.key > array[2]) {
     array[2] = t.key;
   }
-
   // evaluate t.left and t.right
   thirdLargest(t.left, array);
   thirdLargest(t.right, array);
-  // console.log(array);
   return array[2];
 }
+
+/**
+ * #8
+ * Write an algorithm that checks if a BST is balanced (i.e., a tree where no 2 leaves differ in distance
+ * from the root by more than 1).
+ *
+ * Returns true or false
+ *
+ * left, left
+ * left, right
+ *
+ * right, left
+ * right, right
+ *
+ * 1) check how many leaf nodes are on left and right if exist
+ * Compare left and right to find the difference of 2 leave nodes
+ *
+ */
+
+function isBalance(t) {
+  if (!t) {
+    return;
+  }
+  let leftCount = 0;
+  let rightCount = 0;
+  if ()
+  if (t.left && !t.right) {
+    if (t.left.left) {
+      if (t.left.left.left) {
+        leftCount++;
+        if (!t.left.left.left.left && !t.left.left.left.right) {
+          leftCount++;
+        }
+      }
+      if (t.left.left.right) {
+        rightCount++;
+        if (!t.left.left.right.left && !t.left.left.right.right) {
+          rightCount++;
+        }
+      }
+    }
+    if (t.left.right) {
+      if (t.left.right.left) {
+        leftCount++;
+        if (!t.left.right.left.left && !t.left.right.left.right) {
+          leftCount++;
+        }
+      }
+      if (t.left.right.right) {
+        rightCount++;
+        if (!t.left.right.right.left && !t.left.right.right.right) {
+          rightCount++;
+        }
+      }
+    }
+  } else if (!t.left && t.right) {
+    return isBalance(t.left);
+}
+
+/**
+ * #9
+ * You are given two arrays which represent two sequences of keys that are used to create two binary search
+ * trees. Write a program that will tell whether the two BSTs will be identical or not without actually
+ * constructing the tree. You may use another data structure such as an array or a linked list but don't
+ * construct the BST. What is the time complexity of your algorithm? E.g., 3, 5, 4, 6, 1, 0, 2 and 3, 1, 5, 2, 4,
+ * 6, 0 are two sequences of arrays but will create the exact same BSTs and your program should return true.
+ */
