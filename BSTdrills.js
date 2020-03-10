@@ -147,3 +147,87 @@ class BinarySearchTree {
     return this.left._findMin();
   }
 }
+
+//3
+function main() {
+  let tree1 = new BinarySearchTree()
+  tree1.insert(3)
+  tree1.insert(1)
+  tree1.insert(4)
+  tree1.insert(6)
+  tree1.insert(9)
+  tree1.insert(2)
+  tree1.insert(5)
+  tree1.insert(7)
+  //console.log(tree)
+  //console.log(tree(tree1))
+  //console.log(depth(tree1))
+  let depthTree = new BinarySearchTree()
+  depthTree.insert(7)
+  depthTree.insert(4)
+  depthTree.insert(5)
+  depthTree.insert(9)
+  //console.log(depth(depthTree))
+  let pine = new BinarySearchTree()
+  pine.insert(10)
+  pine.left = new BinarySearchTree(5, null, 10)
+  pine.right = new BinarySearchTree(15, null, 10)
+  pine.right.left = new BinarySearchTree(20, null, 15)
+  //console.log(checkBST(tree1))
+  console.log(checkBST(pine))
+  let alphabet = new BinarySearchTree()
+  alphabet.insert('E')
+  alphabet.insert('A')
+  alphabet.insert('S')
+  alphabet.insert('Y')
+  // alphabet.insert('Q')
+  // alphabet.insert('U')
+  alphabet.insert('E')
+  alphabet.insert('S')
+  alphabet.insert('T')
+  alphabet.insert('I')
+  alphabet.insert('O')
+  alphabet.insert('N')
+  //console.log(alphabet)
+
+}
+main()
+
+//4
+function tree(t){
+  if(!t){
+      return 0;
+  }
+  return tree(t.left) + t.key + tree(t.right)
+}
+
+//5
+function depth(t) {
+  if(!t) {
+    return 0
+  }
+  let right = depth(t.right) + 1 
+  let left = depth(t.left) + 1 
+  return Math.max(right, left)
+}
+
+//6
+function checkBST(t) {
+  //console.log(t)
+  if(!t){
+    return
+  }
+  if(t.left) {
+    console.log(` left: ${t.left.key}, key: ${t.key} `)
+    if(t.left.key > t.key) {
+      return false
+    }
+  }  
+  if(t.right) {
+    if(t.right.key < t.key) {
+      return false
+    }
+  }
+  checkBST(t.right)
+  checkBST(t.left)
+}
